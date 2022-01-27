@@ -4,8 +4,8 @@ author:
   name: Robin Reni
   link: https://github.com/robinreni96
 date: 2020-02-15 11:33:00 +0800
-categories: [Python, ComputerVision]
-tags: [Python]
+categories: [Python]
+tags: [Python, ComputerVision]
 math: true
 mermaid: true
 image:
