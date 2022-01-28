@@ -3,7 +3,7 @@ title: About
 icon: fas fa-info-circle
 order: 4
 ---
-<h1 align="center">Hi 👋, I'm Robin Reni</h1>
+<h1 align="center">Hello World 🌍, I'm Robin Reni</h1>
 <h3 align="center">A passionate fullstack ML Guy from India</h3>
 
 - 3.5+ years of experience in bulding AI software products for the world
