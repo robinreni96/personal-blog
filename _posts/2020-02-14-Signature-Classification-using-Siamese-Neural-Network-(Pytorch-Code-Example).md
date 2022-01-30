@@ -3,7 +3,7 @@ title: Signature Classification using Siamese Neural Network (Pytorch Code Examp
 author:
   name: Robin Reni
   link: https://github.com/robinreni96
-date: 020-02-14 20:00:00 -0800
+date: 2020-02-14 20:00:00 -0800
 categories: [NeuralNetwork]
 tags: [Python, ComputerVision]
 math: true
