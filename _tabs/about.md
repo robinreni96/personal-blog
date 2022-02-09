@@ -8,7 +8,7 @@ order: 4
 
 - 3.5+ years of experience in bulding AI software products for the world
 
-- 🔭 I’m currently working in **IQVIA**
+- 🔭 I’m currently working in **Webdura Technologies as Senior ML Engineer** | Former Data Scientist at IQVIA | Former AI Engineer at Innovation Incubator
 
 - 📝 I regularly write articles on [www.robinreni.blog](www.robinreni.blog)
 
