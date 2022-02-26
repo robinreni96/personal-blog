@@ -35,7 +35,10 @@ If you have a github account please create a repo as per your custom name if you
 If you have a heroku account please create a dyno app as per your custom name if you dont have github account please create a [account](https://signup.heroku.com/) and create a dyno app.
 
 ### Workflow
-![Clients invoke a function synchronously and wait for a response.](/assets/img/posts/jupyterhub_workflow.png)
+1. Connect Github repo with Heroku App
+2. Prepare the docker and other config files
+3. Push the codes to Git and build in Heroku
+4. Check the Heroku app
 
 ### Connect Github Repo with Heroku App
 * At this stage you will be having a github repo and a heroku app created. In the heroku app go to Deploy option dashboard -> select the deployment method -> select Github. You will see something like this.
