@@ -4,7 +4,7 @@ author:
   name: Robin Reni
   link: https://github.com/robinreni96
 date: 2020-03-04 20:00:00 +0800
-categories: [AWS]
+categories: [Cloud]
 tags: [AWS, Serverless, MachineLearning]
 math: true
 mermaid: true
@@ -34,14 +34,14 @@ As per my research and experience , AWS Lambda functions are relatively cheap an
 
 Now you got the underlying concept , so I think you can assume why we are using it for parallel ML modelling . Lets explore with some ML Scenarios and code .
 
-#### Step 1 : Make your AWS account ready with Lambda 
-* [Sign Up and Create AWS Account](https://portal.aws.amazon.com/billing/signup#/start) with Free Tier Access 
-* Search Lambda Service in their service page 
+#### Step 1 : Make your AWS account ready with Lambda
+* [Sign Up and Create AWS Account](https://portal.aws.amazon.com/billing/signup#/start) with Free Tier Access
+* Search Lambda Service in their service page
 ![Image result for aws lambda dashboard](https://hackernoon.com/hn-images/1*K7iuCcaz1toxGChNkzSN7g.png)
-* Select **Create Function** -> **Author from Scratch**. Then give the necessary configurations 
+* Select **Create Function** -> **Author from Scratch**. Then give the necessary configurations
 <!-- * ![aws_lambda_config](https://lh3.googleusercontent.com/ASG9ckbBb7Mk7KYmiTto2TB9ZNpufxpa_Xh08NBw1l7xpZJwl8FygiZrBU1scsW1kY1cLkhAz-tf) -->
-* After clicking **Create Function** it gets you to Function Dashboard . 
-Now you are ready to go . Feel free to play and try the configuration settings in the dashboard 
+* After clicking **Create Function** it gets you to Function Dashboard .
+Now you are ready to go . Feel free to play and try the configuration settings in the dashboard
 <!-- ![enter image description here](https://lh3.googleusercontent.com/UQKAo5ouy8x_2970XZYKCnFUbAa2yUs3RouOigeaQBXJUzzOuvqi8q1YBzPZ71SUioo7mEryDxUp) -->
 To play with AWS Lambda Try this : [AWS Lambda Tutorial ](https://www.scalyr.com/blog/aws-lambda-tutorial/)
 
@@ -82,10 +82,10 @@ for data_name , dataset in data_dict.items():
 	with  open(pkl_filename,  'wb')  as  file:
 		pickle.dump(knn,  file)
 ```
-Here I am building 1000 models sequentially in my local system . Now I  breakdown the code and replace it with lambda. 
+Here I am building 1000 models sequentially in my local system . Now I  breakdown the code and replace it with lambda.
 
 #### Step 3: Building with AWS Lambda Handler & Deployment Package:
-We are gonna now replace traditional model building with AWS Lambda 
+We are gonna now replace traditional model building with AWS Lambda
 
 AWS Lambda has two major components :
 * **Handler :** It is a function in your code, that AWS Lambda can invoke when the service executes your code
@@ -120,7 +120,7 @@ def  handler(event,  context):
 		dataset = pd.DataFrame(event["data"])
 		X = dataset.drop(['Id',  'Species'], axis=1)
 		y = dataset['Species']
-		X_train, X_test, y_train, y_test = train_test_split(X, y, 
+		X_train, X_test, y_train, y_test = train_test_split(X, y,
 										                    test_size=0.4,  random_state=5)
 		knn = KNeighborsClassifier(n_neighbors=12)
 		knn.fit(X, y)
@@ -132,23 +132,23 @@ def  handler(event,  context):
 ```
 > **Note :** In this code I am skipping storing of models because it varies based on requirment . You can store the model in Cloud DB like AWS S3 (best way) or you can serialize it  and send as file.
 
-You can notice two major key terms 
+You can notice two major key terms
 * **event :** AWS Lambda uses this parameter to pass in event data to the handler. This parameter is usually of the Python `dict` type. It can also be `list`, `str`, `int`, `float`, or `NoneType` type.
 * **context:** AWS Lambda uses this parameter to provide runtime information to your handler.
 
-Now your lambda handler file is ready , next step is creating a deployment package . It is nothing but making a zip file which contains your **lambda_handler.py** and  **its supporting packages .** 
+Now your lambda handler file is ready , next step is creating a deployment package . It is nothing but making a zip file which contains your **lambda_handler.py** and  **its supporting packages .**
 
-**Follow the steps carefully :** 
-* Consider **aws_lambda** as my project folder . Inside that you already have **lambda_handler.py** 
+**Follow the steps carefully :**
+* Consider **aws_lambda** as my project folder . Inside that you already have **lambda_handler.py**
 * Install all the necessary pacakges in package folder inside project folder. Here we are using **scikit-learn** and **pandas** packages
-	```shell 
-	$ pip install --target ./package scikit-learn 
+	```shell
+	$ pip install --target ./package scikit-learn
 	```
 	``` shell
 	$ pip install --target ./package pandas
 	```
 * You have **lambda_handler.py** file and **package** folder in your aws_lambda folder
-* Compress the files as function.zip file 
+* Compress the files as function.zip file
 	```shell
 	$ cd package
 	```
@@ -161,29 +161,29 @@ Now your lambda handler file is ready , next step is creating a deployment packa
 	```shell
 	$ zip -g function.zip lambda_handler.py
 	```
-* You can see a **function.zip** file inside your **aws_lambda folder** . 
+* You can see a **function.zip** file inside your **aws_lambda folder** .
 
-#### Step 4: Exporting Deployment Package & Lambda Invocation : 
+#### Step 4: Exporting Deployment Package & Lambda Invocation :
 Now you have your **lambda function in aws configured** and the **function.zip** depolyment package in your local system is ready .There are three ways of implementing functions in lambda:
-* **Inline :** If its a simple function which does not need any additional libraries and overheads you can use this 
+* **Inline :** If its a simple function which does not need any additional libraries and overheads you can use this
 * **Upload zip file:** If your deployment package ( **function.zip** ) is **not more than 10MB** you can directly import your function.zip and run it.
-* **Upload a file from Amazon S3**: For **function.zip** file which is **more than 10MB** , you can upload it in AWS S3 bucket and give the S3 file URL in the field value . 
+* **Upload a file from Amazon S3**: For **function.zip** file which is **more than 10MB** , you can upload it in AWS S3 bucket and give the S3 file URL in the field value .
 <!-- ![enter image description here](https://lh3.googleusercontent.com/1kNPsSIwXd8YrtG2IAn2TtrYsP9tgpjdFEsLSVf-YF4vU7HQIsezasDTF9n2vbBTd33FQJODjOeO "lambda_func") -->
 
 In our case we are using Scikit and Pandas package in our function.zip  it exceeds 10Mb , so we are following S3 approach . I hope the remaining two are easy which you can try by yourself.
 
-* Create a S3 bucket or use existing bucket in AWS and upload the **function.zip** file 
+* Create a S3 bucket or use existing bucket in AWS and upload the **function.zip** file
 <!-- ![enter image description here](https://lh3.googleusercontent.com/HBM5UZYQ44LDfBAmIt8uc5OCTlcn2yCDm-f0zBHMQcCwkNS_iRLowr4D-5Ggu4JMl-j3L3VXU3e0 "s3_file") -->
-* Copy the **S3 file url and paste in the lambda function** field remember to follow the 4 steps **1)** Select the function code as **"Upload file S3"** **2)** Paste the **S3 file URL** **3)** Set the **Runtime** version correct ( Python 3.6 ) **4)** In **handler**  field , the value preceeding the dot is file of handler function what we wrote in function.zip (  **lambda_handler**) then the value succedding the dot is the function inside lambda_handler.py ( **handler** ) so it is **lambda_handler.handler** 
+* Copy the **S3 file url and paste in the lambda function** field remember to follow the 4 steps **1)** Select the function code as **"Upload file S3"** **2)** Paste the **S3 file URL** **3)** Set the **Runtime** version correct ( Python 3.6 ) **4)** In **handler**  field , the value preceeding the dot is file of handler function what we wrote in function.zip (  **lambda_handler**) then the value succedding the dot is the function inside lambda_handler.py ( **handler** ) so it is **lambda_handler.handler**
 <!-- ![enter image description here](https://lh3.googleusercontent.com/kqC2WyrjGPd8Bgm08XaBwL8CEujlmH0otAWmM5NKflx7oTJZGb5fDK6hRO0RWmvdx16HFN19vS9O "lambda_s3_import") -->
 * Finally click **Save** . Now your aws lambda is ready to go but how you will invoke it let see in the next step.
 
-#### Step 5: Invocation Function for Lambda Functions & Async Calls : 
-Before getting to this , we need to understand that we gonna call lambda functions asynchronously calls so that it breaks the sequence chain . AWS Lambda has two types of Invocations 
+#### Step 5: Invocation Function for Lambda Functions & Async Calls :
+Before getting to this , we need to understand that we gonna call lambda functions asynchronously calls so that it breaks the sequence chain . AWS Lambda has two types of Invocations
 * **Synchronous Invocation :** When you invoke a function synchronously, Lambda runs the function and waits for a response. When the function execution ends, Lambda returns the response from the function's code with additional data, such as the version of the function that was executed. The input to function ( parameters ) will be encoded as string as send by the invocation to the function . The max size of **payload is 6MB**
-  
+
 	![Clients invoke a function synchronously and wait for a response.](https://docs.aws.amazon.com/lambda/latest/dg/images/invocation-sync.png)
- * **Asynchronous Invocation:** When you invoke a function asynchronously, you don't wait for a response from the function code. You hand off the event to Lambda and Lambda handles the rest. The payload is encoded as string as previous invocation and the maximum size is **256 KB** 
+ * **Asynchronous Invocation:** When you invoke a function asynchronously, you don't wait for a response from the function code. You hand off the event to Lambda and Lambda handles the rest. The payload is encoded as string as previous invocation and the maximum size is **256 KB**
 
 In our case , the **dataset size** in **5KB** and we are storing the response as per the case there is no need of collection response from lambda function so we are using **asynchronous invocation.**
 
@@ -224,7 +224,7 @@ for data_name , dataset in data_dict.items():
 	data = dataset.to_dict(orient="records")
 	send_request(data)
 ```
-When you run this code , you are invoking the lambda functions . To check the status of your hits you can use **CloudWatch inbuilt feature in AWS Lambda** 
+When you run this code , you are invoking the lambda functions . To check the status of your hits you can use **CloudWatch inbuilt feature in AWS Lambda**
 <!-- ![enter image description here](https://lh3.googleusercontent.com/FdhQGneQ4U6LKR2xh0vGFpGFvANu1y7colQxjU1K9LH0vnhO5z3qugzHXeX1Mk7AV-HYySYXhTXa) -->
 
 #### Prediction of Models in Lambda :
@@ -245,7 +245,7 @@ Also there are more complex things like **trigger , destination , concurrency** 
 * Automatic system scaling based on need
 * Cheap and time saving
 
-#### Reference Links : 
+#### Reference Links :
 1. [https://docs.aws.amazon.com/lambda/latest/dg/welcome.html](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 2. [https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html)
 3. [https://stackify.com/aws-lambda-with-python-a-complete-getting-started-guide/](https://stackify.com/aws-lambda-with-python-a-complete-getting-started-guide/)
