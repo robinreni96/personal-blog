@@ -40,10 +40,10 @@ If you have a heroku account please create a dyno app as per your custom name if
 ### Connect Github Repo with Heroku App
 * At this stage you will be having a github repo and a heroku app created. In the heroku app go to Deploy option dashboard -> select the deployment method -> select Github. You will see something like this.
 
-  ![heroku_jupyterlab_github](assets/../../assets/img/posts/heroku_jupyterhub_git.png)
+  ![heroku_jupyterlab_github](../assets/img/posts/heroku_jupyterhub_git.png)
 * Give the repo name is connect to Gihub field -> **Connect**
 * In the Automatic deploys, select **Enable Automatic Deploys**. After the above two steps you will see something like this.
-![heroku_gitlab_connect](assets/../../assets/img/posts/heroku_gitlab_connect.png)
+![heroku_gitlab_connect](../assets/img/posts/heroku_gitlab_connect.png)
 Now when we push code to github it will be auto deployed to Heroku app (Mini CI/CD Pipeline)
 
 ### Prepare the docker and config files
