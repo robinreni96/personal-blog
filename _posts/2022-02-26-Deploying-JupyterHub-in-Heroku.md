@@ -44,6 +44,7 @@ If you have a heroku account please create a dyno app as per your custom name if
 * Give the repo name is connect to Gihub field -> **Connect**
 * In the Automatic deploys, select **Enable Automatic Deploys**. After the above two steps you will see something like this.
 ![heroku_gitlab_connect](/assets/img/posts/heroku_gitlab_connect.png)
+
 Now when we push code to github it will be auto deployed to Heroku app (Mini CI/CD Pipeline)
 
 ### Prepare the docker and config files
@@ -131,3 +132,39 @@ Clone the github repo to your local and add the below files
     docker:
       web: Dockerfile
   ```
+### Git Push & Build Heroku
+Now we have all the required scripts to build our jupyterhub and deploy to heroku app.
+* Navigate to root of the repo
+* For the first time we need to register this repo with heroku and set them to **container stack**. Before that make sure you installed [heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
+  ```shell
+  $ heroku login
+  ```
+  ```shell
+  $ heroku stack:set container
+  $ git push heroku
+  ```
+  > Important: This process is only for the first time of code push.
+* From next time you can normally commit and push the code to git and it will autodeploy to heroku app
+  ```shell
+  $ git commit -a -m "added build codes"
+  $ git push origin
+  ```
+
+### Check the Heroku App
+* You can see build logs in your heroku app activity console and the build success completion status
+* Click the open app in the console which will navigate to your jupyterhub app.
+  ![heroku_log](/assets/img/posts/heroku_log.png)
+* You can see Jupyterhub Login screen. By default we configures as username: admin and password: admin
+  ![jupyter_login](/assets/img/posts/jupyter_login.png)
+
+You will see a jupyterhub console like this
+
+![jupyter_dash](/assets/img/posts/jupyter_dash.png)
+
+Feel free add more features to this docker file and experiment more on this procedure.
+
+Special thanks to [Rodrigo Ancavil](https://medium.com/@rancavil) for his reference articles
+
+### References:
+* https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+* https://medium.com/analytics-vidhya/jupyterhub-docker-31b7a3469872
