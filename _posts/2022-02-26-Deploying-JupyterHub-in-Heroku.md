@@ -9,7 +9,7 @@ tags: [Python]
 math: true
 mermaid: true
 image:
-  src: /assets/img/posts/jupyter.jpeg
+  src: /assets/img/posts/jupyter.png
   width: 800
   height: 500
 ---
