@@ -165,6 +165,9 @@ Feel free add more features to this docker file and experiment more on this proc
 
 Special thanks to [Rodrigo Ancavil](https://medium.com/@rancavil) for his reference articles
 
+**Github Link:** https://github.com/robinreni96/jupyterhub-heroku
+**Docker Image LInk:** https://hub.docker.com/repository/docker/robinreni96/jupyterhub-heroku/general
+
 ### References:
 * https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
 * https://medium.com/analytics-vidhya/jupyterhub-docker-31b7a3469872
