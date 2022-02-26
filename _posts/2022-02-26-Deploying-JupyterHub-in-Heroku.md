@@ -161,13 +161,14 @@ You will see a jupyterhub console like this
 
 ![jupyter_dash](/assets/img/posts/jupyter_dash.png)
 
-Feel free add more features to this docker file and experiment more on this procedure.
+Feel free to add more features to this docker file and experiment more on this procedure.
 
 Special thanks to [Rodrigo Ancavil](https://medium.com/@rancavil) for his reference articles
 
-**Github Link:** https://github.com/robinreni96/jupyterhub-heroku
-**Docker Image LInk:** https://hub.docker.com/repository/docker/robinreni96/jupyterhub-heroku/general
+**Github Link:** [https://github.com/robinreni96/jupyterhub-heroku](https://github.com/robinreni96/jupyterhub-heroku)
+
+**Docker Image LInk:** [https://hub.docker.com/repository/docker/robinreni96/jupyterhub-heroku/general](https://hub.docker.com/repository/docker/robinreni96/jupyterhub-heroku/general)
 
 ### References:
-* https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
-* https://medium.com/analytics-vidhya/jupyterhub-docker-31b7a3469872
+* [https://devcenter.heroku.com/articles/build-docker-images-heroku-yml](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
+* [https://medium.com/analytics-vidhya/jupyterhub-docker-31b7a3469872](https://medium.com/analytics-vidhya/jupyterhub-docker-31b7a3469872)
