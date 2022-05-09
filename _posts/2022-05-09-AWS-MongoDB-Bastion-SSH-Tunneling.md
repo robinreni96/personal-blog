@@ -3,7 +3,7 @@ title: Connecting to MongoDB deployed on AWS using Bastion and SSH Tunneling fro
 author:
   name: Robin Reni
   link: https://github.com/robinreni96
-date: 2022-05-10 20:00:00 +0800
+date: 2022-05-09 20:00:00 +0800
 categories: [Cloud]
 tags: [Python]
 math: true
@@ -15,12 +15,14 @@ image:
 ---
 There are two major ways to deploy MongoDB on AWS one way is to directly deploy using **MongoDB Atlas** and another way is using **Self Managed AWS**. This blog is focused on how to connect locally to MongoDB deployed by Self Managed method.
 
-> To know more about MongoDB AWS : https://docs.aws.amazon.com/quickstart/latest/mongodb/welcome.html
+> To know more about MongoDB AWS : [https://docs.aws.amazon.com/quickstart/latest/mongodb/welcome.html](https://docs.aws.amazon.com/quickstart/latest/mongodb/welcome.html)
 
 ### Self Managed MongoDB AWS Architecture
 ![MongoDB_AWS](/assets/img/posts/mongodb-architecture-on-aws.png) source: MongoDB AWS
 
 You may deployed the MongoDB in AWS using **CloudFormation, Terraform or manually**. After the deployment you will be verifying by below methods
+  * Connect to Bastion
+    ![Bastion](https://docs.aws.amazon.com/quickstart/latest/mongodb/images/node-connection.png)
   * From the bastion host, use SSH to log in to one of the primary instances created by the Quick Start template:
     ```shell
     ssh ec2-user@<Primary-MongoDB-Instance>
@@ -78,7 +80,7 @@ Now the URI looks like this
 ```shell
 mongodb://username:password@127.0.0.1:24000/database?directConnection=true
 ```
-> Note: Make sure you logged in to your Mongoinstance using Bastion and created a user and DB
+> Note: Make sure you logged into your Mongoinstance using Bastion and created a user and DB to connect
 
 You can use the URI in **terminal or compass or NoSQL booster or Studio 3T** etc to connect to your DB
 
